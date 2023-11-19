@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>История запросов</title>
+</head>
+<body>
+<h2>История запросов для: <span th:text="${username}"></span></h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Город</th>
+        <th>Температура</th>
+        <th>Время запроса</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="weather : ${userWeatherHistory}">
+        <td th:text="${weather.city_name}"></td>
+        <td th:text="${weather.temp}"></td>
+        <td th:text="${#dates.format(weather.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/admin/moderation">Вернуться к модерации</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+
+<h1>Погода в городе</h1>
+
+<form th:action="@{/weather}" th:object="${selectedCity}" method="post">
+    <label for="city">Выберите город:</label>
+    <select id="city" th:field="*{id}">
+        <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.cityName}"></option>
+    </select>
+
+    <input type="hidden" th:field="*{latitude}" th:value="${selectedCity.latitude}" />
+    <input type="hidden" th:field="*{longitude}" th:value="${selectedCity.longitude}" />
+    <button type="submit">Получить погоду</button>
+    <a th:href="@{/weather}" class="btn btn-primary">Выбрать другой город</a>
+</form>
+
+
+<div th:if="${temperature}">
+    <p th:text="'Текущая температура: ' + ${temperature} + '°C'"></p>
+</div>
+
+</div>
+
+
+</body>
+</html>

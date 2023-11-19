@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Модерация</title>
+</head>
+<body>
+
+<h2>Пользователи:</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <th>Редактировать</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+        <td>
+            <form method="post" th:action="@{/admin/deleteUser}">
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <button type="submit">Удалить</button>
+            </form>
+            <form method="post" th:action="@{/admin/updateUser}">
+                <input type="hidden" name="id" th:value="${user.id}"/>
+                <input type="text" name="username" th:value="${user.username}"/>
+                <input type="text" name="password" th:value="${user.password}"/>
+                <button type="submit">Обновить</button>
+            </form>
+        </td>
+        <td>
+            <form method="get" th:action="@{/admin/userHistory/{username}(username=${user.username})}">
+                <button type="submit">История запросов</button>
+            </form>
+        </td>
+
+    </tr>
+</table>
+
+</body>
+</html>
